@@ -9,7 +9,10 @@ import {
   MatCheckboxModule,
   MatSidenavModule,
   MatToolbarModule,
-  MatListModule} from '@angular/material';
+  MatListModule,
+  MatTabsModule,
+  MatCardModule,
+  MatSelectModule} from '@angular/material';
 
 // @MgModule - decorator to tell angular this is a module
 @NgModule({
@@ -23,7 +26,10 @@ import {
     MatCheckboxModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule,
+    MatCardModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -35,7 +41,10 @@ import {
     MatCheckboxModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule,
+    MatCardModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule {}
