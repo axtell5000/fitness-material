@@ -1,19 +1,25 @@
 import { Subject } from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 
+
+// Need this to inject a service into a service
+@Injectable()
 export class AuthService {
   authChange = new Subject<boolean>(); // Like an Eventemitter with a payload of type boolean. An Observable
   private user: User;
+
+  constructor(private router: Router) {}
 
   registerUser(authData: AuthData) {
     this.user = {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
     };
-
-    this.authChange.next(true); // Emitting it with a payload of true
+    this.authSuccessfully();
   }
 
   login(authData: AuthData) {
@@ -21,12 +27,13 @@ export class AuthService {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
     };
-    this.authChange.next(true); // Emitting it with a payload of true
+    this.authSuccessfully();
   }
 
   logout() {
     this.user = null;
     this.authChange.next(false); // Emitting it with a payload of false
+    this.router.navigate(['/login']);
   }
 
   getUser() {
@@ -35,5 +42,10 @@ export class AuthService {
 
   isAuth() {
     return this.user != null;
+  }
+
+  private authSuccessfully() {
+    this.authChange.next(true); // Emitting it with a payload of true
+    this.router.navigate(['/training']);
   }
 }

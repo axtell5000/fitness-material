@@ -25,14 +25,21 @@ export class SidenavListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onClose() {
-    this.closeSidenav.emit();
-  }
-
   // Must do this or could cause memory leaks. Do it here in this hook
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
+
+  onClose() {
+    this.closeSidenav.emit();
+  }
+
+  onLogout() {
+    this.onClose();
+    this.authService.logout();
+  }
+
+
 
 
 }

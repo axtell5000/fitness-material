@@ -22,13 +22,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  // must do this to avoid memory issues
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
+  }
+
+
   onToggleSidenav() {
     this.sidenavToggle.emit();
   }
 
-  // must do this to avoid memory issues
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
+  onLogout() {
+    this.authService.logout();
   }
 
 }
