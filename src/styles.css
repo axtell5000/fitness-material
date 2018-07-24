@@ -9,3 +9,16 @@ html, body {
 body {
   margin: 0;
 }
+
+/* To fix rendering of sort arrow in material table */
+
+.mat-sort-header-arrow.ng-trigger.ng-trigger-arrowPosition {
+  opacity: 0;
+}
+
+.mat-sort-header-pointer-left.ng-trigger.ng-trigger-leftPointer{
+  transform: rotate(-45deg);
+}
+.mat-sort-header-pointer-right.ng-trigger.ng-trigger-rightPointer{
+  transform: rotate(45deg);
+}
