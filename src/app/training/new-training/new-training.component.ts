@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 
 import { TrainingService } from '../training.service';
 import { Exercise } from '../exercise.model';
+
 
 
 @Component({
@@ -12,12 +15,13 @@ import { Exercise } from '../exercise.model';
 })
 export class NewTrainingComponent implements OnInit {
 
-  exercises: Exercise[] = []; // Type Exercise array
+  exercises: Observable<any>;
 
-  constructor(private trainingService: TrainingService) { }
+  constructor(private trainingService: TrainingService, private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.exercises = this.trainingService.getAvailableExercises();
+    // valueChanges is an Observable - a basic Observable
+    this.exercises = this.db.collection('availableExercises').valueChanges();
   }
 
   onStartTraining(form: NgForm) {
