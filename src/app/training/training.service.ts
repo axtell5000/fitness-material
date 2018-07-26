@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 
 import { Exercise } from './exercise.model';
+import {D} from '@angular/core/src/render3';
 
 
 @Injectable()
@@ -56,7 +57,11 @@ export class TrainingService {
   }
 
   startExercise(selectId: string) {
-    this.runningExercise = this.availableExercises.find(ex => ex.id === selectId);
+    // Here we are just targeting a specific document.When updating we are only changing a specific thing, not the whole document
+    // this.db.doc('availableExercises/' + selectId).update({lastSelected: new Date()});
+    this.runningExercise = this.availableExercises.find(
+      ex => ex.id === selectId
+    );
     this.exerciseChanged.next({...this.runningExercise}); // Emit exerciseChanged with a payload of a copy of runningExercise
   }
 
