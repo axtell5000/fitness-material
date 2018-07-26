@@ -1,24 +1,44 @@
 import { Subject } from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { map } from 'rxjs/operators';
 
 import { Exercise } from './exercise.model';
 
+
+@Injectable()
 export class TrainingService {
 
   exerciseChanged = new Subject<Exercise>(); // Tells anyone who is listening that payload will be of type Exercise
-  private availableExercises: Exercise[] = [
-    { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-    { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
-    { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
-    { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 },
-    { id: 'push-ups', name: 'Push Ups', duration: 90, calories: 18 },
-    { id: 'sit-ups', name: 'Sit Ups', duration: 90, calories: 18 }
-  ];
+  exercisesChanged = new Subject<Exercise[]>(); // Tells anyone who is listening that payload will bean array of type Exercise
 
+  private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
   private exercises: Exercise[] = [];
 
-  getAvailableExercises() {
-    return this.availableExercises.slice(); // trick - to make copy of array before returning
+  constructor(private db: AngularFirestore) {}
+
+  fetchAvailableExercises() {
+    // valueChanges is an Observable - a basic Observable. snapshotChanges is also one, but more advanced - get metadata as well
+    this.db
+      .collection('availableExercises')
+      .snapshotChanges()
+      .map(docArray => {
+        // vanilla JavaScript map method
+        return docArray.map(doc => {
+          return {
+            id: doc.payload.doc.id,
+            name: doc.payload.doc.data().name,
+            duration: doc.payload.doc.data().duration,
+            calories: doc.payload.doc.data().calories
+
+          };
+        });
+      })
+      .subscribe((exercises: Exercise[]) => {
+        this.availableExercises = exercises;
+        this.exercisesChanged.next([...this.availableExercises]);
+      });
   }
 
   getRunningExercise() {
