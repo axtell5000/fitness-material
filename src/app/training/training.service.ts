@@ -2,9 +2,10 @@ import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Exercise } from './exercise.model';
-import {D} from '@angular/core/src/render3';
+
 
 
 @Injectable()
@@ -16,12 +17,13 @@ export class TrainingService {
 
   private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
+  private firebaseSubs: Subscription[] = [];
 
   constructor(private db: AngularFirestore) {}
 
   fetchAvailableExercises() {
     // valueChanges is an Observable - a basic Observable. snapshotChanges is also one, but more advanced - get metadata as well
-    this.db
+    this.firebaseSubs.push(this.db
       .collection('availableExercises')
       .snapshotChanges()
       .map(docArray => {
@@ -32,14 +34,13 @@ export class TrainingService {
             name: doc.payload.doc.data().name,
             duration: doc.payload.doc.data().duration,
             calories: doc.payload.doc.data().calories
-
           };
         });
       })
       .subscribe((exercises: Exercise[]) => {
         this.availableExercises = exercises;
         this.exercisesChanged.next([...this.availableExercises]);
-      });
+      }));
   }
 
   getRunningExercise() {
@@ -47,9 +48,16 @@ export class TrainingService {
   }
 
   fetchCompletedOrCancelledExercises() {
-    this.db.collection('finishedExercises').valueChanges().subscribe((exercises: Exercise[]) => {
-      this.finishedExercisesChanged.next(exercises);
-    });
+    this.firebaseSubs.push(this.db
+      .collection('finishedExercises')
+      .valueChanges()
+      .subscribe((exercises: Exercise[]) => {
+        this.finishedExercisesChanged.next(exercises);
+    }));
+  }
+
+  cancelSubscription() {
+    this.firebaseSubs.forEach(sub => sub.unsubscribe());
   }
 
   private addDataToDatabase(exercise: Exercise) {
