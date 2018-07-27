@@ -2,9 +2,11 @@ import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { MatSnackBar } from '@angular/material';
 
 import { AuthData } from './auth-data.model';
 import { TrainingService } from '../training/training.service';
+
 
 // NOTE - AngularFire handles the sending / receiving of tokens automatically behind the scenes
 
@@ -17,7 +19,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private snackbar: MatSnackBar
   ) {}
 
   // AngularFire allows us to use authState wich is an Observable and knows if user is authorized by firebase to login
@@ -45,7 +48,9 @@ export class AuthService {
       console.log(result);
     })
     .catch(error => {
-      console.log(error);
+      this.snackbar.open(error.message, null, {
+        duration: 3000
+      });
     });
   }
 
@@ -58,7 +63,9 @@ export class AuthService {
     console.log(result);
   })
     .catch(error => {
-      console.log(error);
+      this.snackbar.open(error.message, null, {
+        duration: 3000
+      });
     });
 
   }
