@@ -17,11 +17,15 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
 
   exercises: Exercise[];
   exerciseSubscription: Subscription;
+  isLoading = true;
 
   constructor(private trainingService: TrainingService) { }
 
   ngOnInit() {
-    this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(exercises => this.exercises = exercises);
+    this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(exercises => {
+      this.isLoading = false;
+      this.exercises = exercises;
+    });
     this.trainingService.fetchAvailableExercises();
 
   }
