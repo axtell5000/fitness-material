@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // flex layout is a package that allows you to use flexbox as directives instead of in the css file of the component
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -16,7 +17,7 @@ import { TrainingService } from './training/training.service';
 import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
-import { TrainingModule } from './training/training.module';
+
 
 
 @NgModule({
@@ -33,8 +34,8 @@ import { TrainingModule } from './training/training.module';
     AppRoutingModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AuthModule,
-    TrainingModule
+    AngularFirestoreModule,
+    AuthModule
   ],
   providers: [AuthService, TrainingService, UIService], // Services so whole App accesses same instance of that service
   bootstrap: [AppComponent]
