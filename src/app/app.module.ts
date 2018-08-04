@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -17,8 +18,9 @@ import { TrainingService } from './training/training.service';
 import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
+import { reducers } from './app.reducer';
 
-
+// This version of app is using @ngrx - a smidgen overkill for this app
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { AuthModule } from './auth/auth.module';
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AuthModule
+    AuthModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [AuthService, TrainingService, UIService], // Services so whole App accesses same instance of that service
   bootstrap: [AppComponent]
