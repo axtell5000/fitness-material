@@ -1,3 +1,4 @@
+<!--Show tabs if there is no ongoing training-->
 <mat-tab-group *ngIf="!(ongoingTraining$ | async)">
   <mat-tab label="New Exercise">
     <app-new-training></app-new-training>
@@ -7,4 +8,6 @@
   </mat-tab>
 
 </mat-tab-group>
+
+<!--Show current training component if there is ongoing training-->
 <app-current-training *ngIf="ongoingTraining$ | async"></app-current-training>

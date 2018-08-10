@@ -1,4 +1,5 @@
 <mat-nav-list>
+  <!--Here we are subscribing to Observable - isAuth$, what we see in nav depends on state -->
   <a mat-list-item routerLink="/signup" (click)="onClose()" *ngIf="!(isAuth$ | async)">
     <mat-icon>face</mat-icon>
     <span class="nav-caption">Signup</span>

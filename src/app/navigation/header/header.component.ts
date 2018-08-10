@@ -18,11 +18,12 @@ export class HeaderComponent implements OnInit {
   constructor(private store: Store<fromRoot.State>, private authService: AuthService) { }
 
   ngOnInit() {
-    this.isAuth$ = this.store.select(fromRoot.getIsAuth); // hold Observable returned by select function
+    this.isAuth$ = this.store.select(fromRoot.getIsAuth); // hold Observable returned by select function which returns a piece of state
   }
 
   onToggleSidenav() {
-    this.sidenavToggle.emit();
+    // This is emitted up to the app.component, where it is used
+    this.sidenavToggle.emit(); // emitting sidenavToggle. This gets called by the click method on the header.component.html
   }
 
   onLogout() {

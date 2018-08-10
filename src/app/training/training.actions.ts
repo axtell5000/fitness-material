@@ -7,6 +7,9 @@ export const SET_FINISHED_TRAININGS = '[Training] Set Finished Trainings';
 export const START_TRAINING = '[Training] Start Training';
 export const STOP_TRAINING = '[Training] Stop Training';
 
+// Actions have a type (like a text to describe what they do - this is used by reducer to determine what must be done to state.
+// Actions also have payloads of data, we do this in the constructor
+
 export class SetAvailableTrainings implements Action {
   readonly type = SET_AVAILABLE_TRAININGS;
 
@@ -14,6 +17,7 @@ export class SetAvailableTrainings implements Action {
   constructor(public payload: Exercise[]) {}
 }
 
+// again putting action in class helps with coding and error
 export class SetFinishedTrainings implements Action {
   readonly type = SET_FINISHED_TRAININGS;
 

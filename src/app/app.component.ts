@@ -12,6 +12,6 @@ export class AppComponent implements OnInit{
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.initAuthListener();
+    this.authService.initAuthListener(); // handles if person is logged in, called from the authService
   }
 }

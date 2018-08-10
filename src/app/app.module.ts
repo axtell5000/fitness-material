@@ -35,10 +35,10 @@ import { reducers } from './app.reducer';
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase), // from environment file
     AngularFirestoreModule,
     AuthModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers) // for main reducers, not includes Training refucer because we separate it because of lazy loading
   ],
   providers: [AuthService, TrainingService, UIService], // Services so whole App accesses same instance of that service
   bootstrap: [AppComponent]

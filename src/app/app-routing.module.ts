@@ -6,7 +6,8 @@ import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
-  { path: 'training', loadChildren: './training/training.module#TrainingModule', canLoad: [AuthGuard]} // for lazy loading, #TrainingModule is to target class
+  // for lazy loading, #TrainingModule is to target class inside training ,module file
+  { path: 'training', loadChildren: './training/training.module#TrainingModule', canLoad: [AuthGuard]}
 ];
 
 // Injecting service here, the whole app doesnt need to know this

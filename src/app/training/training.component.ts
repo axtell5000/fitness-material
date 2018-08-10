@@ -17,6 +17,7 @@ export class TrainingComponent implements OnInit {
   constructor(private trainingService: TrainingService, private store: Store<fromTraining.State>) { }
 
   ngOnInit() {
+    // getting a piece of state
     this.ongoingTraining$ = this.store.select(fromTraining.getIsTraining);
   }
 }

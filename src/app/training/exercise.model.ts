@@ -10,3 +10,5 @@ export interface Exercise {
   date?: Date;
   state?: 'completed' | 'cancelled' | null;
 }
+
+// Used to describe data in App - not really used anymore

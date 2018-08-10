@@ -24,10 +24,11 @@ export class LoginComponent implements OnInit {
     private store: Store<fromRoot.State>) {}
 
   ngOnInit() {
-    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading); // using and storing a piece of state
     // this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(isloading => {
     //   this.isLoading = isloading;
     // });
+    // using Reactive form approach here
     this.loginForm = new FormGroup({
       email: new FormControl('', {
         validators: [Validators.required, Validators.email]
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
   // }
 
   onSubmit() {
+    // calling a method of the authService
     this.authService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password

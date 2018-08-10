@@ -25,7 +25,7 @@ export class AuthService {
     private store: Store<fromRoot.State>
   ) {}
 
-  // AngularFire allows us to use authState wich is an Observable and knows if user is authorized by firebase to login
+  // AngularFire allows us to use authState which is an Observable and knows if user is authorized by firebase to login
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
       if (user) {

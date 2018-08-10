@@ -11,11 +11,13 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   constructor(private store: Store<fromRoot.State>) {}
 
+  // CanActivate checks if we can use a guarded route. Here we are checking via the state
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.store.select(fromRoot.getIsAuth).pipe(take(1));
+    return this.store.select(fromRoot.getIsAuth).pipe(take(1)); // take - takes first value and completes
   }
 
+  // CanLoad - unlike CanActivate it wont even load module if not authorized. Used in conjuction with lazy loading
   canLoad(route: Route) {
-    return this.store.select(fromRoot.getIsAuth).pipe(take(1));
+    return this.store.select(fromRoot.getIsAuth).pipe(take(1)); // take - takes first value and completes
   }
 }

@@ -22,6 +22,7 @@ export class NewTrainingComponent implements OnInit {
   constructor(private trainingService: TrainingService, private store: Store<fromTraining.State>) { }
 
   ngOnInit() {
+    // getting pieces of state
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.exercises$ = this.store.select(fromTraining.getAvailableExercises);
     this.fetchExercises();

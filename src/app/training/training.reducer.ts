@@ -52,6 +52,7 @@ export function trainingReducer(state = initialState, action: TrainingActions) {
 // This name is same as one when importing your store module
 export const getTrainingState = createFeatureSelector<TrainingState>('training');
 
+// Exporting piece of state like this so we can use it easily elsewhere
 export const getAvailableExercises = createSelector(getTrainingState, (state: TrainingState) => state.availableExercises);
 export const getFinishedExercises = createSelector(getTrainingState, (state: TrainingState) => state.finishedExercises);
 export const getActiveTraining = createSelector(getTrainingState, (state: TrainingState) => state.activeTraining);

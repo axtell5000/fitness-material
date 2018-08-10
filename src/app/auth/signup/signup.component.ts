@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
     private store: Store<fromRoot.State>) { }
 
   ngOnInit() {
-    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading); // get a piece of state
     this.maxDate = new Date();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }

@@ -10,6 +10,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)] // this will merge with others. Cant use forRoot here
+  imports: [RouterModule.forChild(routes)] // this will merge with other route modules. Cant use forRoot here. all other must be rootChild
 })
 export class AuthRoutingModule {}

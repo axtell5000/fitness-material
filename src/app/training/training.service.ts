@@ -11,6 +11,7 @@ import * as UI from '../shared/ui.actions';
 import * as Training from './training.actions';
 import * as fromTraining from './training.reducer';
 
+// @Injectable - allowing us to inject services into services
 @Injectable()
 export class TrainingService {
 
@@ -22,13 +23,14 @@ export class TrainingService {
     private store: Store<fromTraining.State>) {}
 
   fetchAvailableExercises() {
-    this.store.dispatch(new UI.StartLoading());
+    this.store.dispatch(new UI.StartLoading()); // dispatching action to start loading exercises
     // valueChanges is an Observable - a basic Observable. snapshotChanges is also one, but more advanced - get metadata as well
     this.firebaseSubs.push(this.db
       .collection('availableExercises')
       .snapshotChanges()
+      // this first map - transform the items emitted by an Observable by applying a function to each item
       .map(docArray => {
-        // vanilla JavaScript map method
+        // vanilla JavaScript map method below
         return docArray.map(doc => {
           return {
             id: doc.payload.doc.id,

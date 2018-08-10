@@ -1,8 +1,11 @@
 <mat-sidenav-container>
+  <!--#sidenav is a local reference which is used in closing or toggling the sidenav-->
   <mat-sidenav #sidenav role="navigation">
+    <!--Listening for event emitted by sidenav-list.componenr, then we will close sidenav using local ref and close-->
     <app-sidenav-list (closeSidenav)="sidenav.close()"></app-sidenav-list>
   </mat-sidenav>
   <mat-sidenav-content>
+    <!--Listening for event emitted by header.component, then we will close sidenav using local ref and close-->
     <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
     <main>
       <router-outlet></router-outlet>
