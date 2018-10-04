@@ -1,6 +1,12 @@
 # FitnessTrackerMaterial
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+Angular 5 project that keeps time of various exercises you do and stores it in a database
+
+There is register and login functionality.
+
+Project uses Angular Material, Firebase, Redux, RxJs and FlexLayout which allows you to use flexbox through directives
+
+This project was initially generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
 ## Development server
 
